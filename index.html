@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Romantic PIN</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      height:100vh;
+      overflow:hidden;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+      position:relative;
+    }
+
+    /* Background bunga */
+    .flower{
+      position:absolute;
+      font-size:30px;
+      animation:fall linear infinite;
+      opacity:0.8;
+    }
+
+    @keyframes fall{
+      0%{
+        transform:translateY(-100px) rotate(0deg);
+      }
+      100%{
+        transform:translateY(110vh) rotate(360deg);
+      }
+    }
+
+    .container{
+      text-align:center;
+      z-index:2;
+      color:white;
+      animation:fadeIn 1.5s ease;
+    }
+
+    @keyframes fadeIn{
+      from{
+        opacity:0;
+        transform:translateY(20px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    h1{
+      font-size:48px;
+      margin-bottom:15px;
+      text-shadow:0 0 10px rgba(255,255,255,0.7);
+    }
+
+    p{
+      font-size:18px;
+      margin-bottom:30px;
+    }
+
+    #startBtn{
+      padding:15px 40px;
+      border:none;
+      border-radius:50px;
+      background:white;
+      color:#ff4f81;
+      font-size:22px;
+      cursor:pointer;
+      font-weight:bold;
+      box-shadow:0 0 20px rgba(255,255,255,0.5);
+      transition:0.3s;
+    }
+
+    #startBtn:hover{
+      transform:scale(1.1);
+      background:#ffe6ec;
+    }
+
+    /* PIN SCREEN */
+    #pinScreen{
+      display:none;
+      animation:fadeIn 1s ease;
+    }
+
+    .pin-display{
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      margin-bottom:30px;
+    }
+
+    .dot{
+      width:16px;
+      height:16px;
+      border:2px solid white;
+      border-radius:50%;
+      background:transparent;
+    }
+
+    .filled{
+      background:white;
+      box-shadow:0 0 10px white;
+    }
+
+    .keypad{
+      display:grid;
+      grid-template-columns:repeat(3,80px);
+      gap:15px;
+      justify-content:center;
+    }
+
+    .number{
+      width:65px;
+      height:65px;
+      border:none;
+      border-radius:50%;
+      background:rgba(255,255,255,0.9);
+      color:#ff4f81;
+      font-size:24px;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.2s;
+    }
+
+    .number:hover{
+      transform:scale(1.15);
+      background:white;
+    }
+
+    .zero{
+      grid-column:2;
+    }
+
+    #status{
+      margin-top:20px;
+      font-size:22px;
+      font-weight:bold;
+      color:white;
+      text-shadow:0 0 10px rgba(255,255,255,0.7);
+    }
+
+    .love{
+      font-size:60px;
+      margin-bottom:20px;
+      animation:pulse 1.5s infinite;
+    }
+
+    @keyframes pulse{
+      0%{
+        transform:scale(1);
+      }
+      50%{
+        transform:scale(1.15);
+      }
+      100%{
+        transform:scale(1);
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Bunga Animasi -->
+  <div class="flower" style="left:10%; animation-duration:8s;">🌸</div>
+  <div class="flower" style="left:25%; animation-duration:10s;">🌹</div>
+  <div class="flower" style="left:40%; animation-duration:7s;">💮</div>
+  <div class="flower" style="left:55%; animation-duration:9s;">🌷</div>
+  <div class="flower" style="left:70%; animation-duration:11s;">🌺</div>
+  <div class="flower" style="left:85%; animation-duration:8s;">🌸</div>
+
+  <div class="container">
+
+    <!-- Welcome -->
+    <div id="welcomeScreen">
+      <div class="love">💖</div>
+
+      <h1>Selamat Dateng</h1>
+
+      <p>klik bawah ni lekk 🌸</p>
+
+      <button id="startBtn" onclick="mulaiApp()">
+        Klik Mulai
+      </button>
+    </div>
+
+    <!-- PIN -->
+    <div id="pinScreen">
+
+      <div class="love">💕</div>
+
+      <h1>Masukkan PIN</h1>
+
+      <div class="pin-display">
+        <div class="dot" id="d1"></div>
+        <div class="dot" id="d2"></div>
+        <div class="dot" id="d3"></div>
+        <div class="dot" id="d4"></div>
+      </div>
+
+      <div class="keypad">
+        <button class="number" onclick="addNumber('1')">1</button>
+        <button class="number" onclick="addNumber('2')">2</button>
+        <button class="number" onclick="addNumber('3')">3</button>
+
+        <button class="number" onclick="addNumber('4')">4</button>
+        <button class="number" onclick="addNumber('5')">5</button>
+        <button class="number" onclick="addNumber('6')">6</button>
+
+        <button class="number" onclick="addNumber('7')">7</button>
+        <button class="number" onclick="addNumber('8')">8</button>
+        <button class="number" onclick="addNumber('9')">9</button>
+
+        <button class="number zero" onclick="addNumber('0')">0</button>
+      </div>
+
+      <div id="status"></div>
+
+    </div>
+
+  </div>
+
+<script>
+  function mulaiApp(){
+    document.getElementById("welcomeScreen").style.display = "none";
+    document.getElementById("pinScreen").style.display = "block";
+  }
+
+  let pin = "";
+  const correctPin = "1234";
+
+  function addNumber(num){
+    if(pin.length < 4){
+      pin += num;
+      updateDots();
+    }
+
+    if(pin.length === 4){
+      setTimeout(checkPin, 300);
+    }
+  }
+
+  function updateDots(){
+    for(let i=1; i<=4; i++){
+      const dot = document.getElementById("d"+i);
+
+      if(i <= pin.length){
+        dot.classList.add("filled");
+      }else{
+        dot.classList.remove("filled");
+      }
+    }
+  }
+
+  function checkPin(){
+    const status = document.getElementById("status");
+
+    if(pin === correctPin){
+
+      status.innerHTML = "PIN Benar 💖";
+
+      // PIN benar pindah halaman
+      setTimeout(() => {
+        window.location.href = "halaman2.html";
+      }, 1000);
+
+    }else{
+
+      status.innerHTML = "PIN Salah 💔";
+
+      setTimeout(() => {
+        pin = "";
+        status.innerHTML = "";
+        updateDots();
+      },1000);
+
+    }
+  }
+</script>
+
+</body>
+</html>

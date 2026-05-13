@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Selamat Pagi</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body{
+      height:100vh;
+      overflow:hidden;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      background: linear-gradient(-45deg, #ffb6c1, #ff69b4, #ffc0cb, #ff8fab);
+      background-size: 400% 400%;
+      animation: bgMove 10s ease-in-out infinite;
+      color:white;
+    }
+
+    @keyframes bgMove{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    /* container love & flower */
+    .particles{
+      position:absolute;
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      z-index:0;
+    }
+
+    .particle{
+      position:absolute;
+      bottom:-50px;
+      font-size:20px;
+      opacity:0.8;
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp{
+      from{
+        transform: translateY(0) rotate(0deg);
+        opacity:0;
+      }
+      10%{opacity:1;}
+      to{
+        transform: translateY(-110vh) rotate(360deg);
+        opacity:0;
+      }
+    }
+
+    .card{
+      position:relative;
+      z-index:2;
+      text-align:center;
+      padding:45px;
+      border-radius:25px;
+
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+
+      animation: appear 1.5s ease-out, float 5s ease-in-out infinite;
+    }
+
+    @keyframes appear{
+      from{
+        opacity:0;
+        transform: translateY(25px) scale(0.9);
+        filter: blur(10px);
+      }
+      to{
+        opacity:1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes float{
+      0%,100%{transform: translateY(0);}
+      50%{transform: translateY(-10px);}
+    }
+
+    h1{
+      font-size:2.6rem;
+      animation: glow 3s ease-in-out infinite;
+    }
+
+    @keyframes glow{
+      0%,100%{
+        text-shadow: 0 0 10px rgba(255,255,255,0.4),
+                     0 0 20px rgba(255,182,193,0.6);
+      }
+      50%{
+        text-shadow: 0 0 20px rgba(255,105,180,0.8);
+      }
+    }
+
+    p{
+      margin-top:12px;
+      font-size:1.2rem;
+      opacity:0;
+      animation: fadeUp 2s ease forwards;
+      animation-delay: 0.8s;
+    }
+
+    @keyframes fadeUp{
+      from{
+        opacity:0;
+        transform: translateY(15px);
+      }
+      to{
+        opacity:1;
+        transform: translateY(0);
+      }
+    }
+
+    .button{
+      margin-top:25px;
+      opacity:0;
+      animation: fadeUp 2s ease forwards;
+      animation-delay: 1.3s;
+    }
+
+    .button a{
+      display:inline-block;
+      padding:11px 24px;
+      border-radius:999px;
+      text-decoration:none;
+      color:white;
+      background: rgba(255,255,255,0.25);
+      border: 1px solid rgba(255,255,255,0.4);
+      transition: 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .button a:hover{
+      transform: scale(1.08);
+      background: rgba(255,105,180,0.4);
+      box-shadow: 0 0 25px rgba(255,105,180,0.6);
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- 💖 LOVE & FLOWER PARTICLES -->
+  <div class="particles" id="particles"></div>
+
+  <div class="card">
+    <h1>Selamat Pagi, Cintaku</h1>
+    <p>ndang sarapann truss mandii.</p>
+
+    <div class="button">
+      <a href="flower.html">Ada bunga mekar ➜</a>
+    </div>
+  </div>
+
+  <script>
+    const icons = ["💖","💕","💗","🌸","🌷","🌺"];
+
+    function createParticle(){
+      const el = document.createElement("div");
+      el.classList.add("particle");
+
+      el.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.fontSize = (12 + Math.random() * 20) + "px";
+      el.style.animationDuration = (4 + Math.random() * 5) + "s";
+
+      document.getElementById("particles").appendChild(el);
+
+      setTimeout(() => {
+        el.remove();
+      }, 9000);
+    }
+
+    setInterval(createParticle, 250);
+  </script>
+
+</body>
+</html>
